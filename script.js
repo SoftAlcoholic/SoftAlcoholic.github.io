@@ -1,7 +1,7 @@
 // Add your JavaScript code here
 
 const form = document.getElementById('encryptionForm');
-const encryptedText = document.getElementById('encryptedText');
+const encryptedText = document.getElementById('textToEncrypt');
 
 form.addEventListener('submit', function(event) {
     event.preventDefault();
