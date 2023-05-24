@@ -9,21 +9,21 @@ form.addEventListener('submit', function(event) {
     const encryptionType = document.getElementById('encryptionType').value;
     const textToEncrypt = document.getElementById('textToEncrypt').value;
     
-    // Perform encryption based on the selected encryption type
-    let encryptedResult = '';
+    // Perform encryption or decryption based on the selected encryption type
+    let result = '';
     
     if (encryptionType === 'caesar') {
-        encryptedResult = caesarCipherEncrypt(textToEncrypt);
+        result = caesarCipherEncrypt(textToEncrypt);
     } else if (encryptionType === 'vigenere') {
-        encryptedResult = vigenereCipherEncrypt(textToEncrypt);
+        result = vigenereCipherEncrypt(textToEncrypt);
     } else if (encryptionType === 'aes') {
-        encryptedResult = aesEncrypt(textToEncrypt);
+        result = aesEncrypt(textToEncrypt);
     } else if (encryptionType === 'railfence') {
-        encryptedResult = railFenceCipherEncrypt(textToEncrypt);
+        result = railFenceCipherEncrypt(textToEncrypt);
     }
     
-    // Display the encrypted result
-    encryptedText.textContent = `Encrypted Text: ${encryptedResult}`;
+    // Display the result
+    encryptedText.textContent = `Result: ${result}`;
 });
 
 // Caesar Cipher encryption function
@@ -46,6 +46,27 @@ function caesarCipherEncrypt(text) {
     }
     
     return encryptedText;
+}
+
+function caesarCipherDecrypt(encryptedText) {
+    const shift = 3;
+    let decryptedText = '';
+    
+    for (let i = 0; i < encryptedText.length; i++) {
+        let charCode = encryptedText.charCodeAt(i);
+        
+        if (charCode >= 65 && charCode <= 90) {
+            // Uppercase letter
+            charCode = ((charCode - 65 - shift + 26) % 26) + 65;
+        } else if (charCode >= 97 && charCode <= 122) {
+            // Lowercase letter
+            charCode = ((charCode - 97 - shift + 26) % 26) + 97;
+        }
+        
+        decryptedText += String.fromCharCode(charCode);
+    }
+    
+    return decryptedText;
 }
 
 // Vigenère Cipher encryption function
@@ -72,12 +93,40 @@ function vigenereCipherEncrypt(text) {
     return encryptedText;
 }
 
+function vigenereCipherDecrypt(encryptedText) {
+    const keyword = 'KEY'; // Change this to your desired keyword
+    const keywordLength = keyword.length;
+    let decryptedText = '';
+    
+    for (let i = 0; i < encryptedText.length; i++) {
+        let charCode = encryptedText.charCodeAt(i);
+        const keywordCharCode = keyword.charCodeAt(i % keywordLength);
+        
+        if (charCode >= 65 && charCode <= 90) {
+            // Uppercase letter
+            charCode = ((charCode - 65 - (keywordCharCode - 65) + 26) % 26) + 65;
+        } else if (charCode >= 97 && charCode <= 122) {
+            // Lowercase letter
+            charCode = ((charCode - 97 - (keywordCharCode - 65) + 26) % 26) + 97;
+        }
+        
+        decryptedText += String.fromCharCode(charCode);
+    }
+    
+    return decryptedText;
+}
+
 // AES Encryption function
 function aesEncrypt(text) {
-    // Encrypt using AES-128 ECB mode
-    const key = 'ThisIsA128BitKey';
-    const encryptedText = CryptoJS.AES.encrypt(text, key).toString();
-    return encryptedText;
+    // Add your AES Encryption logic here
+    // Return the encrypted text
+    return 'AES encrypted text';
+}
+
+function aesDecrypt(encryptedText) {
+    // Add your AES Decryption logic here
+    // Return the decrypted text
+    return 'AES decrypted text';
 }
 
 // Rail Fence Cipher encryption function
@@ -108,4 +157,43 @@ function railFenceCipherEncrypt(text) {
     }
     
     return encryptedText;
+}
+
+function railFenceCipherDecrypt(encryptedText) {
+    const rails = 3; // Number of rails for the cipher
+    const railLength = Math.ceil(encryptedText.length / rails);
+    let railArray = [];
+    
+    let railIndex = 0;
+    let railPos = 0;
+    
+    for (let i = 0; i < encryptedText.length; i++) {
+        railArray[railIndex] = railArray[railIndex] || [];
+        railArray[railIndex][railPos] = encryptedText.charAt(i);
+        
+        railIndex += 1;
+        
+        if (railIndex === rails) {
+            railIndex = 0;
+            railPos += 1;
+        }
+    }
+    
+    let decryptedText = '';
+    
+    railIndex = 0;
+    railPos = 0;
+    
+    for (let i = 0; i < encryptedText.length; i++) {
+        decryptedText += railArray[railIndex][railPos];
+        
+        railIndex += 1;
+        
+        if (railIndex === rails) {
+            railIndex = 0;
+            railPos += 1;
+        }
+    }
+    
+    return decryptedText;
 }

@@ -6,9 +6,16 @@
 </head>
 <body>
     <h1>Encryption Website</h1>
-    <p>Welcome to our encryption website. Choose an encryption type and enter a text to encrypt:</p>
+    <p>Welcome to our encryption website. Choose an action, encryption or decryption, select an encryption type, and enter the text:</p>
     
     <form id="encryptionForm">
+        <div>
+            <label for="action">Action:</label>
+            <select id="action" name="action">
+                <option value="encrypt">Encrypt</option>
+                <option value="decrypt">Decrypt</option>
+            </select>
+        </div>
         <div>
             <label for="encryptionType">Encryption Type:</label>
             <select id="encryptionType" name="encryptionType">
@@ -20,13 +27,13 @@
             </select>
         </div>
         <div>
-            <label for="textToEncrypt">Text to Encrypt:</label>
-            <input type="text" id="textToEncrypt" name="textToEncrypt" required>
+            <label for="textToProcess">Text to Process:</label>
+            <input type="text" id="textToProcess" name="textToProcess" required>
         </div>
-        <button type="submit">Encrypt</button>
+        <button type="submit">Process</button>
     </form>
     
-    <div id="encryptedText"></div>
+    <div id="processedText"></div>
     
     <script src="script.js"></script>
 </body>
