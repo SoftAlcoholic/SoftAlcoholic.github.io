@@ -1,7 +1,7 @@
 // Add your JavaScript code here
 
 const form = document.getElementById('encryptionForm');
-const encryptedText = document.getElementById('textToEncrypt');
+const encryptedText = document.getElementById('encryptedText');
 
 form.addEventListener('submit', function(event) {
     event.preventDefault();
@@ -74,14 +74,38 @@ function vigenereCipherEncrypt(text) {
 
 // AES Encryption function
 function aesEncrypt(text) {
-    // Add your AES Encryption logic here
-    // Return the encrypted text
-    return 'AES encrypted text';
+    // Encrypt using AES-128 ECB mode
+    const key = 'ThisIsA128BitKey';
+    const encryptedText = CryptoJS.AES.encrypt(text, key).toString();
+    return encryptedText;
 }
 
 // Rail Fence Cipher encryption function
 function railFenceCipherEncrypt(text) {
-    // Add your Rail Fence Cipher encryption logic here
-    // Return the encrypted text
-    return 'Rail Fence encrypted text';
+    const rails = 3; // Number of rails for the cipher
+    let railArray = [];
+    for (let i = 0; i < rails; i++) {
+        railArray.push([]);
+    }
+    
+    let rail = 0;
+    let direction = 1;
+    
+    for (let i = 0; i < text.length; i++) {
+        railArray[rail].push(text.charAt(i));
+        
+        rail += direction;
+        
+        if (rail === 0 || rail === rails - 1) {
+            direction *= -1;
+        }
+    }
+    
+    let encryptedText = '';
+    
+    for (let i = 0; i < rails; i++) {
+        encryptedText += railArray[i].join('');
+    }
+    
+    return encryptedText;
 }
