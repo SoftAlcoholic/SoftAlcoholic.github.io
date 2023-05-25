@@ -1,30 +1,41 @@
-// Add your JavaScript code here
 
-const form = document.getElementById('encryptionForm');
-const encryptedText = document.getElementById('encryptedText');
-
-form.addEventListener('submit', function(event) {
-    event.preventDefault();
-    
-    const encryptionType = document.getElementById('encryptionType').value;
-    const textToEncrypt = document.getElementById('textToEncrypt').value;
-    
-    // Perform encryption or decryption based on the selected encryption type
-    let result = '';
-    
-    if (encryptionType === 'caesar') {
-        result = caesarCipherEncrypt(textToEncrypt);
-    } else if (encryptionType === 'vigenere') {
-        result = vigenereCipherEncrypt(textToEncrypt);
-    } else if (encryptionType === 'aes') {
-        result = aesEncrypt(textToEncrypt);
-    } else if (encryptionType === 'railfence') {
-        result = railFenceCipherEncrypt(textToEncrypt);
-    }
-    
-    // Display the result
-    encryptedText.textContent = `Result: ${result}`;
-});
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('encryptionForm');
+    const processedText = document.getElementById('processedText');
+  
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+  
+      const action = document.getElementById('action').value;
+      const encryptionType = document.getElementById('encryptionType').value;
+      const textToProcess = document.getElementById('textToProcess').value;
+      let result = '';
+  
+      if (action === 'encrypt') {
+        if (encryptionType === 'caesar') {
+          result = caesarCipherEncrypt(textToProcess);
+        } else if (encryptionType === 'vigenere') {
+          result = vigenereCipherEncrypt(textToProcess);
+        } else if (encryptionType === 'aes') {
+          result = aesEncrypt(textToProcess);
+        } else if (encryptionType === 'railfence') {
+          result = railFenceCipherEncrypt(textToProcess);
+        }
+      } else if (action === 'decrypt') {
+        if (encryptionType === 'caesar') {
+          result = caesarCipherDecrypt(textToProcess);
+        } else if (encryptionType === 'vigenere') {
+          result = vigenereCipherDecrypt(textToProcess);
+        } else if (encryptionType === 'aes') {
+          result = aesDecrypt(textToProcess);
+        } else if (encryptionType === 'railfence') {
+          result = railFenceCipherDecrypt(textToProcess);
+        }
+      }
+  
+      encryptedText.textContent = `Result: ${result}`;
+    });
+  });
 
 // Caesar Cipher encryption function
 function caesarCipherEncrypt(text) {
