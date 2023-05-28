@@ -1,40 +1,80 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Encryption Website</title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
+  <meta charset="UTF-8">
+  <title>Página con cambio de idioma</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    h1 {
+      color: #333;
+    }
+    #language-button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #333;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+      border: 1px solid #ccc;
+      padding: 5px;
+    }
+    /* Estilos para mejorar el contraste de color */
+    body {
+      background-color: #f7f7f7;
+      color: #333;
+    }
+    h1,
+    p {
+      color: #333;
+    }
+  </style>
 </head>
 <body>
-    <h1>Encryption Website</h1>
-    <p>Welcome to our encryption website. Choose an action, encryption or decryption, select an encryption type, and enter the text:</p>
-    
-    <form id="encryptionForm">
-        <div>
-            <label for="action">Action:</label>
-            <select id="action" name="action">
-                <option value="encrypt">Encrypt</option>
-                <option value="decrypt">Decrypt</option>
-            </select>
-        </div>
-        <div>
-            <label for="encryptionType">Encryption Type:</label>
-            <select id="encryptionType" name="encryptionType">
-                <option value="caesar">Caesar Cipher</option>
-                <option value="vigenere">Vigenère Cipher</option>
-                <option value="aes">AES Encryption</option>
-                <option value="railfence">Rail Fence Cipher</option>
-                <!-- Add more encryption types as needed -->
-            </select>
-        </div>
-        <div>
-            <label for="textToProcess">Text to Process:</label>
-            <input type="text" id="textToProcess" name="textToProcess" required>
-        </div>
-        <button type="submit">Process</button>
-    </form>
-    
-    <div id="processedText"></div>
-    
-    <script src="script.js"></script>
+  <header>
+    <h1>Welcome to My Website</h1>
+  </header>
+  <main>
+    <img src="welcome.jpeg" alt="Welcome image">
+    <p>This is a sample page with language change functionality.</p>
+    <div><button id="language-button" onclick="changeLanguage()">Change Language</button></div>
+    <a href="index - copia.html" style="color: #333;">INDEX COPY</a>
+  </main>
+  <footer>
+    <!-- Contenido del pie de página -->
+  </footer>
+
+  <script>
+    onload = function() {
+      var languageButton = document.querySelector('#language-button');
+      languageButton.className = 'Eng';
+    }
+    function changeLanguage() {
+      var pageTitle = document.querySelector('title');
+      var welcomeMessage = document.querySelector('h1');
+      var description = document.querySelector('p');
+      var imgalt = document.querySelector('img');
+      var languageButton = document.querySelector('#language-button');
+      if  (languageButton.className == 'Eng') {
+        pageTitle.innerText = "Page with language change";
+        welcomeMessage.innerText = "Welcome to my website";
+        description.innerText = "This is a sample page with language change functionality.";
+        imgalt.alt = "Welcome image";
+        languageButton.className = 'Esp';
+      } else {
+        pageTitle.innerText = "Página con cambio de idioma";
+        welcomeMessage.innerText = "Bienvenido a mi sitio web";
+        description.innerText = "Esta es una página de ejemplo con funcionalidad de cambio de idioma.";
+        imgalt.alt = "Imagen de bienvenida";
+        languageButton.className = 'Eng';
+      }
+    }
+  </script>
 </body>
 </html>
